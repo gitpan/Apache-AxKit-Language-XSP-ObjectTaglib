@@ -1,10 +1,11 @@
-# $Id: ObjectTaglib.pm 419 2005-03-15 02:49:10Z claco $
+# $Id: ObjectTaglib.pm 471 2005-03-22 00:27:32Z claco $
 package Apache::AxKit::Language::XSP::ObjectTaglib;
 use strict;
+use warnings;
 use vars qw/@ISA $VERSION @EXPORT/;
 use AxKit;
 use Apache::AxKit::Language::XSP;
-$VERSION = "0.07";
+$VERSION = "0.08";
 use Exporter;
 @ISA = ('Apache::AxKit::Language::XSP', 'Exporter');
 

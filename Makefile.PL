@@ -1,4 +1,4 @@
-# $Id: Makefile.PL 377 2005-03-10 02:56:40Z claco $
+# $Id: Makefile.PL 471 2005-03-22 00:27:32Z claco $
 use strict;
 use warnings;
 use ExtUtils::MakeMaker;
@@ -31,6 +31,10 @@ WriteMakefile(
     },
     (ExtUtils::MakeMaker->VERSION >= 6.11) ?
     (NO_META        => 1) : (),
+
+    dist => {
+        PREOP => 'pod2text lib/Apache/AxKit/Language/XSP/ObjectTaglib.pm > $(DISTVNAME)/README',
+    },
     clean           =>  {
         FILES => "t/TEST t/SMOKE smoke-report-* t/logs"
     }
