@@ -1,10 +1,8 @@
-# $Id: Prerequisite.pm 125 2005-02-04 00:46:30Z claco $
+# $Id: Prerequisite.pm 309 2005-03-05 17:05:21Z claco $
 package AxKit::XSP::ObjectTaglib::Demo::Prerequisite;
-use AxKit::XSP::ObjectTaglib::Demo::Course;
 use strict;
-use vars qw(@ISA);
-
-@ISA = qw(AxKit::XSP::ObjectTaglib::Demo::Course);
+use warnings;
+use base 'AxKit::XSP::ObjectTaglib::Demo::Course';
 
 1;
 __END__
@@ -29,12 +27,15 @@ the C<AxKit::XSP::ObjectTaglib::Demo> Taglib. A prerequisite object is simply a
 course object in a different role. See L<AxKit::XSP::ObjectTaglib::Demo::Course>
 for further documentation.
 
-=head1 AUTHOR
-
-Christopher H. Laco <axkit@chrislaco.com>
-
 =head1 SEE ALSO
 
 L<AxKit::XSP::ObjectTaglib::Demo>,
 L<Apache::AxKit::Language::XSP::ObjectTaglib>,
 L<AxKit::XSP::ObjectTaglib::Demo::Course>
+
+=head1 AUTHOR
+
+    Christopher H. Laco
+    CPAN ID: CLACO
+    cpan@chrislaco.com
+    http://today.icantfocus.com/blog/

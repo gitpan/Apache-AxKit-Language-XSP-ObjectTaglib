@@ -1,6 +1,7 @@
-# $Id: Courses.pm 125 2005-02-04 00:46:30Z claco $
+# $Id: Courses.pm 309 2005-03-05 17:05:21Z claco $
 package AxKit::XSP::ObjectTaglib::Demo::Courses;
 use strict;
+use warnings;
 
 sub load {
     my @courses;
@@ -41,6 +42,7 @@ AxKit::XSP::ObjectTaglib::Demo::Courses - A mock course collection object
 
     use AxKit::XSP::ObjectTaglib::Demo::Courses;
     use strict;
+    use warnings;
 
     my @courses = AxKit::XSP::ObjectTaglib::Demo::Courses->load;
     for (@courses) {
@@ -64,12 +66,15 @@ Returns an array of C<AxKit::XSP::ObjectTaglib::Demo::Course> objects.
         print $_->name;
     };
 
-=head1 AUTHOR
-
-Christopher H. Laco <axkit@chrislaco.com>
-
 =head1 SEE ALSO
 
 L<AxKit::XSP::ObjectTaglib::Demo>,
 L<Apache::AxKit::Language::XSP::ObjectTaglib>,
 L<AxKit::XSP::ObjectTaglib::Demo::Course>
+
+=head1 AUTHOR
+
+    Christopher H. Laco
+    CPAN ID: CLACO
+    cpan@chrislaco.com
+    http://today.icantfocus.com/blog/

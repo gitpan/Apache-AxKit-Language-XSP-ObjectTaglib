@@ -1,4 +1,7 @@
-# $Id: 003_pod_coverage.t 125 2005-02-04 00:46:30Z claco $
+#!perl -wT
+# $Id: 003_pod_coverage.t 309 2005-03-05 17:05:21Z claco $
+use strict;
+use warnings;
 use Test::More;
 
 eval 'use Test::Pod::Coverage 1.04';

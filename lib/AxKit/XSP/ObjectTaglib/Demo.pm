@@ -1,10 +1,10 @@
-# $Id: Demo.pm 125 2005-02-04 00:46:30Z claco $
+# $Id: Demo.pm 309 2005-03-05 17:05:21Z claco $
 package AxKit::XSP::ObjectTaglib::Demo;
 use strict;
-use Apache::AxKit::Language::XSP::ObjectTaglib;
+use warnings;
+use base 'Apache::AxKit::Language::XSP::ObjectTaglib';
+use vars qw($NS @specification);
 
-use vars qw(@ISA $NS @specification);
-@ISA = qw(Apache::AxKit::Language::XSP::ObjectTaglib);
 $NS = 'http://today.icantfocus.com/CPAN/AxKit/XSP/ObjectTaglib/Demo';
 
 @specification = (
@@ -90,8 +90,7 @@ __END__
 
 =head1 NAME
 
-AxKit::XSP::ObjectTaglib::Demo - A demo oop-ish taglib using
-C<Apache::AxKit::Language::XSP::ObjectTaglib>
+AxKit::XSP::ObjectTaglib::Demo - A demo taglib using ObjectTaglib
 
 =head1 SYNOPSIS
 
@@ -144,7 +143,7 @@ L<Apache::AxKit::Language::XSP::ObjectTaglib>.
 =head2 start_courses
 
 When the topmost <demo:courses> start tag is encountered, the C<start_course>
-method  is called. The most common implimentations would probably use the
+method  is called. The most common implementations would probably use the
 start/end methods to load and map the topmost tags to the root objects being
 used. After that, the relationships in C<@specification> will be used to
 generate the necessary code.
@@ -161,7 +160,7 @@ why, but it had to be done to work. :-)
       $e->manage_text(0);
 
 Now we'll create a new variable containing the code to insert into the XSP
-inards. First we'll load the Courses module:
+innards. First we'll load the Courses module:
 
       my $out = '
         use AxKit::XSP::ObjectTaglib::Demo::Courses;
@@ -229,10 +228,13 @@ Lastly, we'll write out the main courses loop closure and return it.
       return $out;
     };
 
-=head1 AUTHOR
-
-Christopher H. Laco <axkit@chrislaco.com>
-
 =head1 SEE ALSO
 
 L<Apache::AxKit::Language::XSP::ObjectTaglib>
+
+=head1 AUTHOR
+
+    Christopher H. Laco
+    CPAN ID: CLACO
+    cpan@chrislaco.com
+    http://today.icantfocus.com/blog/

@@ -1,6 +1,7 @@
-# $Id: Presentation.pm 125 2005-02-04 00:46:30Z claco $
+# $Id: Presentation.pm 309 2005-03-05 17:05:21Z claco $
 package AxKit::XSP::ObjectTaglib::Demo::Presentation;
 use strict;
+use warnings;
 
 sub new {
     my $class = shift;
@@ -53,10 +54,13 @@ C<AxKit::XSP::ObjectTaglib::Demo::Presentation> object.
 
     print $presentation->calculatedSize;
 
-=head1 AUTHOR
-
-Christopher H. Laco <axkit@chrislaco.com>
-
 =head1 SEE ALSO
 
 L<AxKit::XSP::ObjectTaglib::Demo>, L<Apache::AxKit::Language::XSP::ObjectTaglib>
+
+=head1 AUTHOR
+
+    Christopher H. Laco
+    CPAN ID: CLACO
+    cpan@chrislaco.com
+    http://today.icantfocus.com/blog/

@@ -1,4 +1,7 @@
-# $Id: 001_load.t 125 2005-02-04 00:46:30Z claco $
+#!perl -wT
+# $Id: 001_load.t 309 2005-03-05 17:05:21Z claco $
+use strict;
+use warnings;
 use Test::More tests => 1;
 
 BEGIN {

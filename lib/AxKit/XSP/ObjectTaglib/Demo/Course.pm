@@ -1,6 +1,7 @@
-# $Id: Course.pm 125 2005-02-04 00:46:30Z claco $
+# $Id: Course.pm 309 2005-03-05 17:05:21Z claco $
 package AxKit::XSP::ObjectTaglib::Demo::Course;
 use strict;
+use warnings;
 
 sub new {
     my $class = shift;
@@ -71,6 +72,7 @@ AxKit::XSP::ObjectTaglib::Demo::Course - A mock course object
 
     use AxKit::XSP::ObjectTaglib::Demo::Course;
     use strict;
+    use warnings;
 
     my $course = AxKit::XSP::ObjectTaglib::Demo::Course->new();
     print $course->name;
@@ -162,12 +164,15 @@ C<AxKit::XSP::ObjectTaglib::Demo::Course> object.
 See L<AxKit::XSP::ObjectTaglib::Demo::Resource> for more information about
 the objects returned.
 
-=head1 AUTHOR
-
-Christopher H. Laco <axkit@chrislaco.com>
-
 =head1 SEE ALSO
 
 L<AxKit::XSP::ObjectTaglib::Demo>,
 L<Apache::AxKit::Language::XSP::ObjectTaglib>,
 L<AxKit::XSP::ObjectTaglib::Demo::Courses>
+
+=head1 AUTHOR
+
+    Christopher H. Laco
+    CPAN ID: CLACO
+    cpan@chrislaco.com
+    http://today.icantfocus.com/blog/

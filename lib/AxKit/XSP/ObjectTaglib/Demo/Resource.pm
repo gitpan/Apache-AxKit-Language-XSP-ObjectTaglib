@@ -1,6 +1,7 @@
-# $Id: Resource.pm 125 2005-02-04 00:46:30Z claco $
+# $Id: Resource.pm 309 2005-03-05 17:05:21Z claco $
 package AxKit::XSP::ObjectTaglib::Demo::Resource;
 use strict;
+use warnings;
 
 sub new {
     my $class = shift;
@@ -19,7 +20,7 @@ __END__
 
 =head1 NAME
 
-AxKit::XSP::ObjectTaglib::Demo::Resource - A mock course resouce object
+AxKit::XSP::ObjectTaglib::Demo::Resource - A mock course resource object
 
 =head1 SYNOPSIS
 
@@ -53,10 +54,13 @@ object.
 
     print $resource->name;
 
-=head1 AUTHOR
-
-Christopher H. Laco <axkit@chrislaco.com>
-
 =head1 SEE ALSO
 
 L<AxKit::XSP::ObjectTaglib::Demo>, L<Apache::AxKit::Language::XSP::ObjectTaglib>
+
+=head1 AUTHOR
+
+    Christopher H. Laco
+    CPAN ID: CLACO
+    cpan@chrislaco.com
+    http://today.icantfocus.com/blog/

@@ -1,10 +1,10 @@
-# $Id: ObjectTaglib.pm 125 2005-02-04 00:46:30Z claco $
+# $Id: ObjectTaglib.pm 306 2005-03-05 17:02:46Z claco $
 package Apache::AxKit::Language::XSP::ObjectTaglib;
 use strict;
 use vars qw/@ISA $VERSION @EXPORT/;
 use AxKit;
 use Apache::AxKit::Language::XSP;
-$VERSION = "0.04";
+$VERSION = "0.05";
 use Exporter;
 @ISA = ('Apache::AxKit::Language::XSP', 'Exporter');
 
@@ -170,10 +170,10 @@ Apache::AxKit::Language::XSP::ObjectTaglib - Helper for OO Taglibs
 =head1 SYNOPSIS
 
     package MyTaglib;
-    use Apache::AxKit::Language::XSP::ObjectTaglib;
-
-    use vars qw(@ISA @specification);
-    @ISA = qw(Apache::AxKit::Language::XSP::ObjectTaglib);
+    use strict;
+    use warnings;
+    use base 'Apache::AxKit::Language::XSP::ObjectTaglib';
+    use vars qw(@specification);
 
     @specification = (
         ...
@@ -268,7 +268,7 @@ the first defined tag, the code generated looks something like this:
       $_xsp_axkit_xsp_objecttaglib_demo_course->name;
     };
 
-Now, on the the main looping tag C<courses>.
+Now, on the main looping tag C<courses>.
 
       }, {
         tag   => 'courses',
@@ -361,7 +361,7 @@ This returns a list of new prerequisite objects, which we loop over.
 Our loop iterator will be C<$_xsp_axkit_xsp_objecttaglib_demo_course>
 itself, so the other tags will work properly on the iterated courses.
 
-Some code is worth a thousand words. The generated Perl will look
+Some code is worth a thousand words. The generated perl will look
 something like this:
 
     for my $_xsp_axkit_xsp_objecttaglib_demo_course
@@ -370,7 +370,7 @@ something like this:
     }
 
 Because we want to use the C<name> tag within the prerequisites B<and> the
-courses, we chose the slighty dirty method above. We could also have declared a
+courses, we chose the slightly dirty method above. We could also have declared a
 new tag called C<reqname> and chosen a cleaner iterator like so
 
       }, {
@@ -424,15 +424,17 @@ generates something like this:
 
 All clear?
 
-=head1 LICENSE
-
-GPL/AL.
-
-=head1 AUTHOR
-
-Christopher H. Laco <axkit@chrislaco.com> is the current maintainer. The
-original version was created by Simon Cozens.
-
 =head1 SEE ALSO
 
 L<AxKit::XSP::ObjectTaglib::Demo>
+
+=head1 AUTHOR
+
+    Christopher H. Laco
+    CPAN ID: CLACO
+    cpan@chrislaco.com
+    http://today.icantfocus.com/blog/
+
+=head1 AUTHOR EMERITUS
+
+The original version was created by Simon Cozens.

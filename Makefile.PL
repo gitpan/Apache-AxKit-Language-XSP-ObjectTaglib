@@ -1,21 +1,23 @@
-# $Id: Makefile.PL 125 2005-02-04 00:46:30Z claco $
+# $Id: Makefile.PL 310 2005-03-05 17:10:00Z claco $
+use strict;
+use warnings;
 use ExtUtils::MakeMaker;
-use File::Spec::Functions;
-
-my $test = catfile('t', 'TEST');
 
 eval 'use Apache::Test 1.16';
 if (!$@) {
     require Apache::TestMM;
     Apache::TestMM->import(qw(test clean));
 
-    my @scripts = qw(t/TEST);
+    ## for whatever reason, use AxKit causes issues
+    ## use-ing A::A::Exception doesn't
+    eval 'use Apache::AxKit::Exception';
+    if (!$@) {
+        push(@ARGV, '-defines', 'AXKIT');
+    };
 
     Apache::TestMM::filter_args();
-    Apache::TestMM::generate_script($test);
-
-    mkdir($sessiondir, 777);
-    mkdir($sessionlockdir, 777);
+    Apache::TestMM::generate_script('t/TEST');
+    Apache::TestMM::generate_script('t/SMOKE');
 };
 
 WriteMakefile(
@@ -30,6 +32,6 @@ WriteMakefile(
     (ExtUtils::MakeMaker->VERSION >= 6.11) ?
     (NO_META        => 1) : (),
     clean           =>  {
-        FILES => "$test"
+        FILES => "t/TEST t/SMOKE smoke-report-*"
     }
 );
