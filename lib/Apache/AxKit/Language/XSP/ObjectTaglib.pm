@@ -1,10 +1,10 @@
-# $Id: ObjectTaglib.pm 313 2005-03-05 17:37:29Z claco $
+# $Id: ObjectTaglib.pm 419 2005-03-15 02:49:10Z claco $
 package Apache::AxKit::Language::XSP::ObjectTaglib;
 use strict;
 use vars qw/@ISA $VERSION @EXPORT/;
 use AxKit;
 use Apache::AxKit::Language::XSP;
-$VERSION = "0.06";
+$VERSION = "0.07";
 use Exporter;
 @ISA = ('Apache::AxKit::Language::XSP', 'Exporter');
 
@@ -432,7 +432,7 @@ L<AxKit::XSP::ObjectTaglib::Demo>
 
     Christopher H. Laco
     CPAN ID: CLACO
-    cpan@chrislaco.com
+    claco@chrislaco.com
     http://today.icantfocus.com/blog/
 
 =head1 AUTHOR EMERITUS

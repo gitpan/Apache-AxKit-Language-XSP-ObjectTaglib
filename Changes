@@ -1,5 +1,8 @@
-$Id: Changes 318 2005-03-05 17:40:59Z claco $
+$Id: Changes 421 2005-03-15 02:50:31Z claco $
 Revision history for Perl module Apache::AxKit::Language::XSP::ObjectTaglib
+
+0.07 Mon Mar 14 21:43:26 2005
+    - Added Test::Strict tests
 
 0.06 Sat Mar 05 12:39:24 2005
     - Removed undeed extra.conf.in junk

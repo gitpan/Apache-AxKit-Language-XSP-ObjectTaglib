@@ -1,4 +1,4 @@
-# $Id: Presentation.pm 309 2005-03-05 17:05:21Z claco $
+# $Id: Presentation.pm 377 2005-03-10 02:56:40Z claco $
 package AxKit::XSP::ObjectTaglib::Demo::Presentation;
 use strict;
 use warnings;
@@ -62,5 +62,5 @@ L<AxKit::XSP::ObjectTaglib::Demo>, L<Apache::AxKit::Language::XSP::ObjectTaglib>
 
     Christopher H. Laco
     CPAN ID: CLACO
-    cpan@chrislaco.com
+    claco@chrislaco.com
     http://today.icantfocus.com/blog/

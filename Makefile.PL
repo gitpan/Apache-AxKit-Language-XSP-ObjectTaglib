@@ -1,4 +1,4 @@
-# $Id: Makefile.PL 322 2005-03-05 18:09:55Z claco $
+# $Id: Makefile.PL 377 2005-03-10 02:56:40Z claco $
 use strict;
 use warnings;
 use ExtUtils::MakeMaker;
@@ -25,7 +25,7 @@ WriteMakefile(
     VERSION_FROM    => 'lib/Apache/AxKit/Language/XSP/ObjectTaglib.pm',
     ABSTRACT        => 'XSP helper for OO Taglibs',
     ($] >= 5.005 ?
-        (AUTHOR     => 'Christopher H. Laco (axkit@chrislaco.com)') : ()),
+        (AUTHOR     => 'Christopher H. Laco <claco@chrislaco.com>') : ()),
     PREREQ_PM       => {
         'AxKit'     =>  1.62
     },
