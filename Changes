@@ -1,0 +1,6 @@
+Revision history for Perl extension Apache::AxKit::Language::XSP::ObjectTaglib.
+
+0.01  Thu May 16 12:22:50 2002
+	- original version; created by h2xs 1.21 with options
+		-AX -n Apache::AxKit::Language::XSP::ObjectTaglib
+
