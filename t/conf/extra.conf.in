@@ -1,4 +1,4 @@
-# $Id: extra.conf.in 310 2005-03-05 17:10:00Z claco $
+# $Id: extra.conf.in 316 2005-03-05 17:39:22Z claco $
 <IfModule mod_perl.c>
 	<IfDefine AXKIT>
 		PerlModule		AxKit
@@ -11,15 +11,6 @@
 
 		<Files *.xsp>
 			SetHandler	AxKit
-		</Files>
-	</IfDefine>
-	<IfDefine TT2>
-		PerlModule		Apache::Template
-		TT2Trim			On
-
-		<Files *.tt2>
-			SetHandler	perl-script
-			PerlHandler	Apache::Template
 		</Files>
 	</IfDefine>
 </IfModule>

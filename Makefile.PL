@@ -1,4 +1,4 @@
-# $Id: Makefile.PL 310 2005-03-05 17:10:00Z claco $
+# $Id: Makefile.PL 322 2005-03-05 18:09:55Z claco $
 use strict;
 use warnings;
 use ExtUtils::MakeMaker;
@@ -27,11 +27,11 @@ WriteMakefile(
     ($] >= 5.005 ?
         (AUTHOR     => 'Christopher H. Laco (axkit@chrislaco.com)') : ()),
     PREREQ_PM       => {
-        'AxKit'     =>  undef
+        'AxKit'     =>  1.62
     },
     (ExtUtils::MakeMaker->VERSION >= 6.11) ?
     (NO_META        => 1) : (),
     clean           =>  {
-        FILES => "t/TEST t/SMOKE smoke-report-*"
+        FILES => "t/TEST t/SMOKE smoke-report-* t/logs"
     }
 );
