@@ -1,8 +1,10 @@
+# $Id: ObjectTaglib.pm,v 1.2 2004/11/29 03:47:06 claco Exp $
 package Apache::AxKit::Language::XSP::ObjectTaglib;
 use strict;
 use vars qw/@ISA $VERSION @EXPORT/;
+use AxKit;
 use Apache::AxKit::Language::XSP;
-$VERSION = "0.02";
+$VERSION = "0.03";
 use Exporter;
 @ISA = ('Apache::AxKit::Language::XSP', 'Exporter');
 
@@ -20,13 +22,22 @@ sub parse_char {
 
     $text =~ s/\|/\\\|/g;
     return ". q|$text|";
-}
+};
 
 sub parse_start {
     my ($e, $tag, %attr) = @_;
+
+	AxKit::Debug(5, "ObjectTaglib: parse_start called on tag '$tag'");
     $tag =~ s/-/_/g;
+	AxKit::Debug(5, "ObjectTaglib: tag name cleaned to '$tag'");
+
+
     my $ns = $e->{Current_Element}->{NamespaceURI};
+    AxKit::Debug(5, "ObjectTaglib: current namespace is '$ns'");
+
     my $where = $Apache::AxKit::Language::XSP::tag_lib{ $ns };
+    AxKit::Debug(5, "ObjectTaglib: current taglib is '$where'");
+
     push @{$stacks{$where}}, $tag;
     my ($safe_where, @specification);
     {
@@ -35,16 +46,35 @@ sub parse_start {
     }
 
     ($safe_where = lc $where) =~ s/::/_/g;
+	AxKit::Debug(5, "ObjectTaglib: taglib cleaned to '$safe_where'");
+
+	if ($AxKit::Cfg->DebugLevel() > 0) {
+		for (keys %attr) {
+			AxKit::Debug(5, "ObjectTaglib: tag attribute $_=" . $attr{$_});
+		};
+	};
+
     s/\|//g for %attr;
 
+	AxKit::Debug(5, 'ObjectTaglib: looping through specification');
     for (@specification) {
-        next unless $tag eq $_->{tag};
+		AxKit::Debug(5, "ObjectTaglib: specification item '" . $_->{tag} . "'");
+		if ($tag ne $_->{tag}) {
+			AxKit::Debug(5,
+			"ObjectTaglib: skipping tag specification '$tag'!=" . $_->{tag});
+			next;
+		};
+
         if (defined $_->{context} ) {
+			AxKit::Debug(5, "ObjectTaglib: context '" . $_->{context} . "'");
             next unless $_->{context} eq $stacks{$where}->[-2];
         }
 
-        return $_->{start}->($e, $tag, %attr)
-            if $_->{type} eq "special";
+		if ($_->{type} eq 'special') {
+			AxKit::Debug(5, "ObjectTaglib: calling start method '" .
+				$_->{start} . "'");
+	        return $_->{start}->($e, $tag, %attr)
+		};
 
         if ($_->{type} eq "loop") {
             $e->manage_text(0);
@@ -62,13 +92,26 @@ EOF
 
 sub parse_end {
     my ($e, $tag, %attr) = @_;
+
+    AxKit::Debug(5, "ObjectTaglib: parse_end called on tag '$tag'");
     $tag =~ s/-/_/g;
+    AxKit::Debug(5, "ObjectTaglib: tag name cleaned to '$tag'");
+
     my $where = $AxKit::XSP::TaglibPkg;
+    AxKit::Debug(5, "ObjectTaglib: current namespace is '$where'");
+
     pop @{$stacks{$where}};
     my ($safe_where, @specification);
     { no strict 'refs'; @specification = @{"${where}::specification"}; }
 
     ($safe_where = lc $where) =~ s/::/_/g;
+    AxKit::Debug(5, "ObjectTaglib: taglib cleaned to '$safe_where'");
+
+	if ($AxKit::Cfg->DebugLevel() > 0) {
+		for (keys %attr) {
+			AxKit::Debug(5, "ObjectTaglib: tag attribute $_=" . $attr{$_});
+		};
+	};
 
     for (@specification) {
         next unless $tag eq $_->{tag};
@@ -77,7 +120,7 @@ sub parse_end {
         }
 
         return $_->{end}->($e, $tag, %attr)
-            if $_->{type} eq "special";
+            if $_->{type} eq 'special';
 
         my $target = $_->{target};
 
@@ -107,15 +150,18 @@ EOF
             return ''
         }
 
-        $e->append_to_script("(\$_xsp_${safe_where}_$target->$tag()".
-            ($_->{notnull} && "|| q|<p></p>|").");");
+        $e->append_to_script(
+			"(\$_xsp_${safe_where}_$target->" . ($_->{key} || $tag) . "()" .
+            ($_->{notnull} && '|| \'<p></p>\'').");"
+        );
+
         $e->end_expr();
         return "";
     }
     die "Unknown end tag $tag\n";
 }
 1;
-
+__END__
 
 =head1 NAME
 
@@ -125,6 +171,8 @@ Apache::AxKit::Language::XSP::ObjectTaglib - Helper for OO Taglibs
 
     package MyTaglib;
     use Apache::AxKit::Language::XSP::ObjectTaglib;
+
+    use vars qw(@ISA @specification);
     @ISA = qw(Apache::AxKit::Language::XSP::ObjectTaglib);
 
     @specification = (
@@ -141,116 +189,208 @@ several objects, and call methods on a given object.
 
 Here is a sample specification:
 
-    @specification = (
-    { tag => "name", context => "resources", target => "resource" },
+	@specification = (
+	  {
+	    tag     => 'name',
+	    context => 'resources',
+	    target  => 'resource'
+	  }, {
+	    tag      => 'resources',
+	    target   => 'course',
+	    type     => 'loop',
+	    iterator => 'resource'
+	  }, {
+	    tag   => 'courses',
+	    type  => 'special',
+	    start => \&start_courses,
+	    end   => \&end_courses
+	  }, {
+	    tag    => 'name',
+	    target => 'course'
+	  }, {
+	    tag    => 'code',
+	    target => 'course'
+	  }, {
+	    tag    => 'description',
+	    target => 'course',
+	    type   => 'as_xml'
+	  }, {
+	    tag    => 'summary',
+	    target => 'course',
+	    type   => 'as_xml'
+	  }, {
+	    tag      => 'presentations',
+	    target   => 'course',
+	    type     => 'loop',
+	    iterator => 'presentation'
+	  }, {
+	    tag    => 'size',
+	    key    => 'calculateSize',
+	    target => 'presentation',
+	    notnull => 1
+	  }, {
+	    tag      => 'prerequisites',
+	    target   => 'course',
+	    type     => 'loop',
+	    iterator => 'course'
+	  }
+	);
 
-    { tag => "courses", type => "special",
-                        start => \&start_courses, end => \&end_courses },
+This is the specification used in the sample C<AxKit::XSP::ObjectTaglib::Demo>
+Taglib so all variable names used in the examples below start with
+C<_xsp_axkit_xsp_objecttaglib_demo_>. Here's what this means:
 
-    { tag => "name",  target => "course" },
-    { tag => "code",  target => "course" },
-
-    { tag => "presentations",
-        target => "course", type => "loop", iterator => "presentation" },
-    { tag => "prerequisites",
-        target => "course", type => "loop", iterator => "course" },
-
-    { tag => "description", target => "course", type => "as_xml" },
-    { tag => "summary",     target => "course", type => "as_xml" },
-
-    ...
-
-    { tag => "size",          target => "presentation", notnull => 1 },
-   );
-
-Here's what this means:
-
-    { tag => "name", context => "resources", target => "resource" },
+	  {
+	    tag     => 'name',
+	    context => 'resources',
+	    target  => 'resource'
+	  }, {
 
 Define a tag called C<name> which occurs inside of another tag called
-C<resources>. (We'll define a top-level C<name> tag later, so this
-context-sensitive override has to come first.) When this tag is seen,
+C<resources>. (We'll define a top-level C<name> tag for C<courses> later, so
+this context-sensitive override has to come first.) When this tag is seen,
 the method C<name> will be called on the variable
-C<$_xsp_axkit_xsp_coursebooking_resource>. (This example is taken from the
-C<AxKit::XSP::CourseBooking> taglib, and so all variable names used by
-the example taglib start with C<_xsp_axkit_xsp_coursebooking_>.)
+C<@_xsp_axkit_xsp_objecttaglib_demo_resource>.
 
-    { tag => "courses", type => "special",
-                        start => \&start_courses, end => \&end_courses },
+	  }, {
+	    tag      => 'resources',
+	    target   => 'course',
+	    type     => 'loop',
+	    iterator => 'resource'
+	  }, {
+
+Define a tag called C<resources> that will loop through each C<resource>
+returned by the method C<resources> on the C<course> object. When combined with
+the first defined tag, the code generated looks something like this:
+
+	for $_xsp_axkit_xsp_objecttaglib_demo_resource
+	  ($_xsp_axkit_xsp_objecttaglib_demo_course->resources) {
+	  $_xsp_axkit_xsp_objecttaglib_demo_course->name;
+	};
+
+Now, on the the main looping tag C<courses>.
+
+	  }, {
+	    tag   => 'courses',
+	    type  => 'special',
+	    start => \&start_courses,
+	    end   => \&end_courses
+	  }, {
 
 C<courses> will be the main entry point for our tag library, and as such
 needs to do some special things to set itself up. Hence, it uses a
 C<special> type, and provides its own handlers to handle the start and
 end tag events. These handlers will be responsible for setting up
-C<$_xsp_axkit_xsp_coursebooking_course>, used in the following tags, and
+C<$_xsp_axkit_xsp_objecttaglib_demo_courses>, used in the following tags, and
 looping over the possible courses, setting
-C<$_xsp_axkit_xsp_coursebooking_course> appropriately.
+C<$_xsp_axkit_xsp_objecttaglib_demo_>course appropriately.
 
-    { tag => "name",  target => "course" },
-    { tag => "code",  target => "course" },
+	  }, {
+	    tag    => 'name',
+	    target => 'course'
+	  }, {
+	    tag    => 'code',
+	    target => 'course'
+	  }, {
+	    tag    => 'description',
+	    target => 'course',
+	    type   => 'as_xml'
+	  }, {
+	    tag    => 'summary',
+	    target => 'course',
+	    type   => 'as_xml'
+	  }, {
 
 When we see the C<name> tag, we call the C<name> method on
-C<$_xsp_axkit_xsp_coursebooking_course>. Similarly, the C<code> tag
-calls the C<code> method on the same object.
+each C<$_xsp_axkit_xsp_objecttaglib_demo_course> object within the loop.
+Similarly, the C<code> tag calls the C<code> method on the same object.
 
-    { tag => "presentations",
-        target => "course", type => "loop", iterator => "presentation" },
+The C<description> and C<summary> tags call the C<description> and C<summary>
+methods on each course object with the loop, this time making sure that the
+result is valid XML instead of plain text. (This is because we store the
+description in the database as XML, and don't want it escaped before AxKit
+throws it onto the page.)
+
+	  }, {
+	    tag      => 'presentations',
+	    target   => 'course',
+	    type     => 'loop',
+	    iterator => 'presentation'
+	  }, {
 
 Each course object has a C<presentations> method, which is wrapped by the
-C<presentations> tag. This methods returns a list of objects representing
+C<presentations> tag. This method returns a list of objects representing
 the presentations of a course; the C<presentations> tag sets up a loop,
-with C<$_xsp_axkit_xsp_coursebooking_presentation> as the iterator. Hence,
+with C<$_xsp_axkit_xsp_objecttaglib_demo_presentation> as the iterator. Hence,
 inside of a C<presentations> tag, C<< target => "presentation" >> will cause
 the method to be called on each presentation object in turn.
 
-    { tag => "prerequisites",
-        target => "course", type => "loop", iterator => "course" },
+	  }, {
+	    tag    => 'size',
+	    key    => 'calculateSize',
+	    target => 'presentation',
+	    notnull => 1
+	  }, {
+
+Like the course C<name> tag, we'll declare a C<size> tag for the C<presentation>
+object.
+
+	  }, {
+	    tag      => 'prerequisites',
+	    target   => 'course',
+	    type     => 'loop',
+	    iterator => 'course'
+	  }
 
 This is slightly dirty. We want a C<prerequisites> tag to refer to other
 course objects, namely, the courses which are required for admission to
 the current course. ie:
 
-    <c:courses code="foo">
-        For course <c:name/>, you need to take the following courses:
-
-        <c:prerequisites>
-            <li> <c:name/>
-        </c:prerequisites>
-
-    </c:courses>
+	<demo:prerequisites>
+	  <prerequisite>
+	    <name><demo:name/></name>
+	    <code><demo:code/></code>
+	  </prerequisite>
+	</demo:prerequisites>
 
 So when we see the C<prerequisites> tag, we call the C<prerequisites>
 method on our C<course> target, C<$_xsp_axkit_xsp_coursebooking_course>.
-This returns a list of new course objects, which we loop over.
+This returns a list of new prerequisite objects, which we loop over.
 (C<type => "loop">)
 
-Our loop iterator will be C<$_xsp_axkit_xsp_coursebooking_course>
+Our loop iterator will be C<$_xsp_axkit_xsp_objecttaglib_demo_course>
 itself, so the other tags will work properly on the iterated courses.
 
 Some code is worth a thousand words. The generated Perl will look
 something like this:
 
-    for my $_xsp_axkit_xsp_coursebooking_course
-        ($_xsp_axkit_xsp_coursebooking_course->prerequisites) {
-        ... $_xsp_axkit_xsp_coursebooking_course->name ...
+    for my $_xsp_axkit_xsp_objecttaglib_demo_course
+        ($_xsp_axkit_xsp_objecttaglib_demo_course->prerequisites) {
+        ... $_xsp_axkit_xsp_objecttaglib_demo_course->name ...
     }
 
-Back to our specification:
+Because we want to use the C<name> tag within the prerequisites B<and> the
+courses, we chose the slighty dirty method above. We could also have declared a
+new tag called C<reqname> and chosen a cleaner iterator like so
 
-    { tag => "description", target => "course", type => "as_xml" },
-    { tag => "summary",     target => "course", type => "as_xml" },
+	  }, {
+	    tag      => 'prerequisites',
+	    target   => 'course',
+	    type     => 'loop',
+	    iterator => 'prerequisite'
+	  }, {
+	    tag      => 'reqname',
+	    target   => 'prerequisite'
+      }
 
-These tags call the C<description> and C<summary> methods on the course
-object, this time making sure that the result is valid XML instead of
-plain text. (This is because we store the description in the database
-as XML, and don't want it escaped before AxKit throws it onto the page.)
+and then use slightly different XSP like this
 
-    { tag => "size",          target => "presentation", notnull => 1 },
-
-When we see C<size>, we call the C<size> method on
-C<$_xsp_axkit_xsp_coursebooking_presentation>, the presentation object
-we set up in a loop above. We ensure that we get B<some> output back from
-this method.
+	<demo:prerequisites>
+	  <prerequisite>
+	    <name><demo:reqname/></name>
+	    <code><demo:code/></code>
+	  </prerequisite>
+	</demo:prerequisites>
 
 Here's another quick example:
 
@@ -290,5 +430,9 @@ GPL/AL.
 
 =head1 AUTHOR
 
-    Christopher H. Laco, C<axkit@chrislaco.com>.
-    Simon Cozens, C<simon@ermine.ox.ac.uk>.
+Christopher H. Laco <axkit@chrislaco.com> is the current maintainer. The
+original version was created by Simon Cozens.
+
+=head1 SEE ALSO
+
+L<AxKit::XSP::ObjectTaglib::Demo>

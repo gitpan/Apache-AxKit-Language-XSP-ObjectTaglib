@@ -3,5 +3,17 @@ LICENSE
 Todo
 Changes
 lib/Apache/AxKit/Language/XSP/ObjectTaglib.pm
+lib/AxKit/XSP/ObjectTaglib/Demo.pm
+lib/AxKit/XSP/ObjectTaglib/Demo/Courses.pm
+lib/AxKit/XSP/ObjectTaglib/Demo/Course.pm
+lib/AxKit/XSP/ObjectTaglib/Demo/Prerequisite.pm
+lib/AxKit/XSP/ObjectTaglib/Demo/Presentation.pm
+lib/AxKit/XSP/ObjectTaglib/Demo/Resource.pm
+t/TEST.PL
+t/conf/extra.conf.in
+t/htdocs/courses.xsp
 t/001_load.t
+t/002_pod.t
+t/003_pod_coverage.t
+t/004_xsp.t
 Makefile.PL

@@ -1,0 +1,11 @@
+# $Id: extra.conf.in,v 1.1 2004/11/29 03:44:27 claco Exp $
+PerlModule AxKit
+AxNoCache On
+AxDebugLevel 10
+AxAddProcessor application/x-xsp .
+
+AxAddXSPTaglib AxKit::XSP::ObjectTaglib::Demo
+
+<Files *.xsp>
+	SetHandler AxKit
+</Files>

@@ -1,4 +1,11 @@
+$Id: Changes,v 1.3 2004/11/29 03:38:13 claco Exp $
 Revision history for Perl module Apache::AxKit::Language::XSP::ObjectTaglib
+
+0.03 Sun Nov 28 22:37:05 2004
+	- Added Test::Pod and Test::Pod::Coverage tests
+	- Added Demo tablig with supporting demo class objects
+	- Added Apache::Test -> Axkit Taglib tests with demo Taglib
+	- Added AxKit::Debug logging
 
 0.02 Sat Nov 20 20:51:07 2004
 	- Converted to ExtUtils::ModuleMaker directory structure
