@@ -1,6 +1,12 @@
-Revision history for Perl extension Apache::AxKit::Language::XSP::ObjectTaglib.
+Revision history for Perl module Apache::AxKit::Language::XSP::ObjectTaglib
+
+0.02 Sat Nov 20 20:51:07 2004
+	- Converted to ExtUtils::ModuleMaker directory structure
+	- Updated contact information
+	- Added basic Test::More tests
 
 0.01  Thu May 16 12:22:50 2002
 	- original version; created by h2xs 1.21 with options
 		-AX -n Apache::AxKit::Language::XSP::ObjectTaglib
+
 

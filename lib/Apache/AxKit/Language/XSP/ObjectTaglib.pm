@@ -2,7 +2,7 @@ package Apache::AxKit::Language::XSP::ObjectTaglib;
 use strict;
 use vars qw/@ISA $VERSION @EXPORT/;
 use Apache::AxKit::Language::XSP;
-$VERSION = "0.01";
+$VERSION = "0.02";
 use Exporter;
 @ISA = ('Apache::AxKit::Language::XSP', 'Exporter');
 
@@ -29,8 +29,8 @@ sub parse_start {
     my $where = $Apache::AxKit::Language::XSP::tag_lib{ $ns };
     push @{$stacks{$where}}, $tag;
     my ($safe_where, @specification);
-    { 
-        no strict 'refs'; @specification = @{"${where}::specification"}; 
+    {
+        no strict 'refs'; @specification = @{"${where}::specification"};
         die "No specification found in $where!" unless @specification;
     }
 
@@ -39,14 +39,14 @@ sub parse_start {
 
     for (@specification) {
         next unless $tag eq $_->{tag};
-        if (defined $_->{context} ) { 
+        if (defined $_->{context} ) {
             next unless $_->{context} eq $stacks{$where}->[-2];
         }
 
         return $_->{start}->($e, $tag, %attr)
             if $_->{type} eq "special";
-        
-        if ($_->{type} eq "loop") { 
+
+        if ($_->{type} eq "loop") {
             $e->manage_text(0);
             my $iterator = $_->{iterator};
             my $target = $_->{target};
@@ -72,7 +72,7 @@ sub parse_end {
 
     for (@specification) {
         next unless $tag eq $_->{tag};
-        if (defined $_->{context} ) { 
+        if (defined $_->{context} ) {
             next unless $_->{context} eq $stacks{$where}->[-1];
         }
 
@@ -99,7 +99,8 @@ sub parse_end {
             $e->start_element($util_include_expr);
             $e->start_element($xsp_expr);
             $e->append_to_script(<<EOF);
-    '<some-obvious-grouping-tag>'.\$_xsp_${safe_where}_$target->$tag().'</some-obvious-grouping-tag>'
+    '<some-obvious-grouping-tag>'.\$_xsp_${safe_where}_$target->$tag().
+    '</some-obvious-grouping-tag>'
 EOF
             $e->end_element($xsp_expr);
             $e->end_element($util_include_expr);
@@ -178,9 +179,9 @@ the example taglib start with C<_xsp_axkit_xsp_coursebooking_>.)
                         start => \&start_courses, end => \&end_courses },
 
 C<courses> will be the main entry point for our tag library, and as such
-needs to do some special things to set itself up. Hence, it uses a 
+needs to do some special things to set itself up. Hence, it uses a
 C<special> type, and provides its own handlers to handle the start and
-end tag events. These handlers will be responsible for setting up 
+end tag events. These handlers will be responsible for setting up
 C<$_xsp_axkit_xsp_coursebooking_course>, used in the following tags, and
 looping over the possible courses, setting
 C<$_xsp_axkit_xsp_coursebooking_course> appropriately.
@@ -262,7 +263,7 @@ Here's another quick example:
 
 This comes from a wrapper around LDAP. As before, the C<person> tag at
 the top level has two subroutines to set up the C<person> target.
-(which in this case will be C<$_xsp_axkit_xsp_ldap_person>) When a 
+(which in this case will be C<$_xsp_axkit_xsp_ldap_person>) When a
 C<name> tag is seen inside of the C<person> tag, a method is called on
 that target. This time, we use C<key> to say that the method name is
 actually C<cn>, rather than C<name>. Hence the following XSP:
@@ -289,4 +290,5 @@ GPL/AL.
 
 =head1 AUTHOR
 
-Simon Cozens, C<simon@ermine.ox.ac.uk>.
+    Christopher H. Laco, C<axkit@chrislaco.com>.
+    Simon Cozens, C<simon@ermine.ox.ac.uk>.

@@ -1,6 +1,7 @@
-Changes
-Makefile.PL
 MANIFEST
-ObjectTaglib.pm
-README
-test.pl
+LICENSE
+Todo
+Changes
+lib/Apache/AxKit/Language/XSP/ObjectTaglib.pm
+t/001_load.t
+Makefile.PL
