@@ -1,63 +1,63 @@
-# $Id: Course.pm,v 1.1 2004/11/29 03:49:17 claco Exp $
+# $Id: Course.pm 125 2005-02-04 00:46:30Z claco $
 package AxKit::XSP::ObjectTaglib::Demo::Course;
 use strict;
 
 sub new {
-	my $class = shift;
-	my $attr = shift || {};
-	my $self = bless $attr, $class;
+    my $class = shift;
+    my $attr = shift || {};
+    my $self = bless $attr, $class;
 
-	return $self;
+    return $self;
 };
 
 sub name {
-	return shift->{name};
+    return shift->{name};
 };
 
 sub code {
-	return shift->{code};
+    return shift->{code};
 };
 
 sub summary {
-	return shift->{summary};
+    return shift->{summary};
 };
 
 sub description {
-	return shift->{description};
+    return shift->{description};
 };
 
 sub prerequisites {
-	my @prerequisites;
+    my @prerequisites;
 
-	require AxKit::XSP::ObjectTaglib::Demo::Prerequisite;
-	push @prerequisites, AxKit::XSP::ObjectTaglib::Demo::Prerequisite->new({
-		name => 'Prerequisite 1 for ' . shift->{name},
-		code => 'p123'
-	});
+    require AxKit::XSP::ObjectTaglib::Demo::Prerequisite;
+    push @prerequisites, AxKit::XSP::ObjectTaglib::Demo::Prerequisite->new({
+        name => 'Prerequisite 1 for ' . shift->{name},
+        code => 'p123'
+    });
 
-	return @prerequisites;
+    return @prerequisites;
 };
 
 sub presentations {
-	my @presentations;
+    my @presentations;
 
-	require AxKit::XSP::ObjectTaglib::Demo::Presentation;
-	push @presentations, AxKit::XSP::ObjectTaglib::Demo::Presentation->new({
-		size => shift->{code}
-	});
+    require AxKit::XSP::ObjectTaglib::Demo::Presentation;
+    push @presentations, AxKit::XSP::ObjectTaglib::Demo::Presentation->new({
+        size => shift->{code}
+    });
 
-	return @presentations;
+    return @presentations;
 };
 
 sub resources {
-	my @resources;
+    my @resources;
 
-	require AxKit::XSP::ObjectTaglib::Demo::Resource;
-	push @resources, AxKit::XSP::ObjectTaglib::Demo::Resource->new({
-		name => 'Resource ' . shift->{code}
-	});
+    require AxKit::XSP::ObjectTaglib::Demo::Resource;
+    push @resources, AxKit::XSP::ObjectTaglib::Demo::Resource->new({
+        name => 'Resource ' . shift->{code}
+    });
 
-	return @resources;
+    return @resources;
 };
 
 1;
@@ -69,11 +69,11 @@ AxKit::XSP::ObjectTaglib::Demo::Course - A mock course object
 
 =head1 SYNOPSIS
 
-	use AxKit::XSP::ObjectTaglib::Demo::Course;
-	use strict;
+    use AxKit::XSP::ObjectTaglib::Demo::Course;
+    use strict;
 
-	my $course = AxKit::XSP::ObjectTaglib::Demo::Course->new();
-	print $course->name;
+    my $course = AxKit::XSP::ObjectTaglib::Demo::Course->new();
+    print $course->name;
 
 =head1 DESCRIPTION
 
@@ -88,49 +88,49 @@ the C<AxKit::XSP::ObjectTaglib::Demo> Taglib.
 Returns a new C<AxKit::XSP::ObjectTaglib::Demo::Course> object. You can
 also pass in an optional hashref to be blessed into the new object.
 
-	my $course = AxKit::XSP::ObjectTaglib::Demo::Course->new({
-		name => 'Course 100: Easy Course',
-		code => 100
-	});
+    my $course = AxKit::XSP::ObjectTaglib::Demo::Course->new({
+        name => 'Course 100: Easy Course',
+        code => 100
+    });
 
 =head2 name
 
 Returns the name of the given C<AxKit::XSP::ObjectTaglib::Demo::Course>
 object.
 
-	print $course->name;
+    print $course->name;
 
 =head2 code
 
 Returns the course code of the given C<AxKit::XSP::ObjectTaglib::Demo::Course>
 object.
 
-	print $course->code;
+    print $course->code;
 
 =head2 summary
 
 Returns the summary description of the given
 C<AxKit::XSP::ObjectTaglib::Demo::Course> object.
 
-	print $course->summary;
+    print $course->summary;
 
 =head2 description
 
 Returns the description of the given
 C<AxKit::XSP::ObjectTaglib::Demo::Course> object.
 
-	print $course->description;
+    print $course->description;
 
 =head2 prerequisites
 
 Returns an array of prerequisite objects of the given
 C<AxKit::XSP::ObjectTaglib::Demo::Course> object.
 
-	my @prerequisites = $course->prerequisites;
-	for (@preequisites) {
-		print $_->name;
-		print $_->code;
-	};
+    my @prerequisites = $course->prerequisites;
+    for (@preequisites) {
+        print $_->name;
+        print $_->code;
+    };
 
 See L<AxKit::XSP::ObjectTaglib::Demo::Prerequisite> for more information about
 the objects returned.
@@ -140,11 +140,11 @@ the objects returned.
 Returns an array of presentation objects of the given
 C<AxKit::XSP::ObjectTaglib::Demo::Course> object.
 
-	my @presentations = $course->presentations;
-	for (@presentations) {
-		print $_->name;
-		print $_->calculatedSize;
-	};
+    my @presentations = $course->presentations;
+    for (@presentations) {
+        print $_->name;
+        print $_->calculatedSize;
+    };
 
 See L<AxKit::XSP::ObjectTaglib::Demo::Presentation> for more information about
 the objects returned.
@@ -154,10 +154,10 @@ the objects returned.
 Returns an array of resource objects of the given
 C<AxKit::XSP::ObjectTaglib::Demo::Course> object.
 
-	my @resources = $course->resources;
-	for (@resources) {
-		print $_->name;
-	};
+    my @resources = $course->resources;
+    for (@resources) {
+        print $_->name;
+    };
 
 See L<AxKit::XSP::ObjectTaglib::Demo::Resource> for more information about
 the objects returned.

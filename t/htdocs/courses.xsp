@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Id: courses.xsp,v 1.1 2004/11/29 03:45:01 claco Exp $ -->
+<!-- $Id: courses.xsp 125 2005-02-04 00:46:30Z claco $ -->
 <xsp:page xmlns:xsp="http://apache.org/xsp/core/v1"
 	xmlns:demo="http://today.icantfocus.com/CPAN/AxKit/XSP/ObjectTaglib/Demo"
 >

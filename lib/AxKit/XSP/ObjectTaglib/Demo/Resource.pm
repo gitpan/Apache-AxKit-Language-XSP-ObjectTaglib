@@ -1,17 +1,17 @@
-# $Id: Resource.pm,v 1.1 2004/11/29 03:49:17 claco Exp $
+# $Id: Resource.pm 125 2005-02-04 00:46:30Z claco $
 package AxKit::XSP::ObjectTaglib::Demo::Resource;
 use strict;
 
 sub new {
-	my $class = shift;
-	my $attr = shift || {};
-	my $self = bless $attr, $class;
+    my $class = shift;
+    my $attr = shift || {};
+    my $self = bless $attr, $class;
 
-	return $self;
+    return $self;
 };
 
 sub name {
-	return shift->{name};
+    return shift->{name};
 };
 
 1;
@@ -23,11 +23,11 @@ AxKit::XSP::ObjectTaglib::Demo::Resource - A mock course resouce object
 
 =head1 SYNOPSIS
 
-	use AxKit::XSP::ObjectTaglib::Demo::Resource;
-	use strict;
+    use AxKit::XSP::ObjectTaglib::Demo::Resource;
+    use strict;
 
-	my $resource = AxKit::XSP::ObjectTaglib::Demo::Resource->new();
-	print $resource->name;
+    my $resource = AxKit::XSP::ObjectTaglib::Demo::Resource->new();
+    print $resource->name;
 
 =head1 DESCRIPTION
 
@@ -42,16 +42,16 @@ C<AxKit::XSP::ObjectTaglib::Demo> Taglib.
 Returns a new C<AxKit::XSP::ObjectTaglib::Demo::Resource> object. You can also
 pass in an optional hashref to be blessed into the new object.
 
-	my $resource = AxKit::XSP::ObjectTaglib::Demo::Resource->new({
-		name => 'My Resource'
-	});
+    my $resource = AxKit::XSP::ObjectTaglib::Demo::Resource->new({
+        name => 'My Resource'
+    });
 
 =head2 name
 
 Returns the name of the given C<AxKit::XSP::ObjectTaglib::Demo::Resource>
 object.
 
-	print $resource->name;
+    print $resource->name;
 
 =head1 AUTHOR
 

@@ -1,4 +1,4 @@
-# $Id: 002_pod.t,v 1.1 2004/11/29 03:42:47 claco Exp $
+# $Id: 002_pod.t 125 2005-02-04 00:46:30Z claco $
 use Test::More;
 
 eval 'use Test::Pod 1.00';

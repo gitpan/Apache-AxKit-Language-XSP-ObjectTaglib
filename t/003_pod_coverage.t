@@ -1,9 +1,9 @@
-# $Id: 003_pod_coverage.t,v 1.1 2004/11/29 03:42:47 claco Exp $
+# $Id: 003_pod_coverage.t 125 2005-02-04 00:46:30Z claco $
 use Test::More;
 
 eval 'use Test::Pod::Coverage 1.04';
 plan skip_all =>
-	'Test::Pod::Coverage 1.04 required for testing pod coverage' if $@;
+    'Test::Pod::Coverage 1.04 required for testing pod coverage' if $@;
 
 plan tests => 7;
 

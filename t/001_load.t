@@ -1,4 +1,4 @@
-# $Id: 001_load.t,v 1.3 2004/11/29 03:41:43 claco Exp $
+# $Id: 001_load.t 125 2005-02-04 00:46:30Z claco $
 use Test::More tests => 1;
 
 BEGIN {

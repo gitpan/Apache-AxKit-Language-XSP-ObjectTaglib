@@ -1,4 +1,4 @@
-# $Id: Prerequisite.pm,v 1.1 2004/11/29 03:49:17 claco Exp $
+# $Id: Prerequisite.pm 125 2005-02-04 00:46:30Z claco $
 package AxKit::XSP::ObjectTaglib::Demo::Prerequisite;
 use AxKit::XSP::ObjectTaglib::Demo::Course;
 use strict;
@@ -15,11 +15,11 @@ AxKit::XSP::ObjectTaglib::Demo::Prerequisite - A mock course prerequisite object
 
 =head1 SYNOPSIS
 
-	use AxKit::XSP::ObjectTaglib::Demo::Prerequisite;
-	use strict;
+    use AxKit::XSP::ObjectTaglib::Demo::Prerequisite;
+    use strict;
 
-	my $prerequisite = AxKit::XSP::ObjectTaglib::Demo::Prerequisite->new();
-	print $prerequisite->name;
+    my $prerequisite = AxKit::XSP::ObjectTaglib::Demo::Prerequisite->new();
+    print $prerequisite->name;
 
 =head1 DESCRIPTION
 

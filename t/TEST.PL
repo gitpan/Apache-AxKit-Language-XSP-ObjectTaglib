@@ -1,5 +1,5 @@
 #!perl
-# $Id: TEST.PL,v 1.1 2004/11/29 03:42:47 claco Exp $
+# $Id: TEST.PL 125 2005-02-04 00:46:30Z claco $
 
 use strict;
 use warnings FATAL => 'all';

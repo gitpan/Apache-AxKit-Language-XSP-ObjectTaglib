@@ -1,4 +1,4 @@
-# $Id: 004_xsp.t,v 1.1 2004/11/29 03:42:47 claco Exp $
+# $Id: 004_xsp.t 125 2005-02-04 00:46:30Z claco $
 # Using require instead of use to avoid redefining errors
 # when Apache::Test < 1.16 is installed
 require Test::More;
@@ -14,7 +14,7 @@ Test::More::plan(skip_all =>
 Apache::TestRequest->import(qw(GET));
 Apache::TestRequest::user_agent( cookie_jar => {});
 Apache::Test::plan(tests => 1,
-	need('AxKit', 'mod_perl', &have_apache(1), &have_lwp));
+    need('AxKit', 'mod_perl', &have_apache(1), &have_lwp));
 
 my $courses = GET('/courses.xsp');
 ok($courses->code == 200);

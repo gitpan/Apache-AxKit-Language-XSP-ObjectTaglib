@@ -1,5 +1,11 @@
-$Id: Changes,v 1.3 2004/11/29 03:38:13 claco Exp $
+$Id: Changes 125 2005-02-04 00:46:30Z claco $
 Revision history for Perl module Apache::AxKit::Language::XSP::ObjectTaglib
+
+0.04 Thur Feb 03 19:28:43 2005
+	- Converted from CVS to Subversion
+	- Changed Id tags to make SVN happy
+	- Added META.yml and NO_META
+	- Added MANIFEST.SKIP
 
 0.03 Sun Nov 28 22:37:05 2004
 	- Added Test::Pod and Test::Pod::Coverage tests

@@ -1,4 +1,5 @@
 MANIFEST
+MANIFEST.SKIP
 LICENSE
 Todo
 Changes
@@ -17,3 +18,4 @@ t/002_pod.t
 t/003_pod_coverage.t
 t/004_xsp.t
 Makefile.PL
+META.yml                                 Module meta-data (added by MakeMaker)
