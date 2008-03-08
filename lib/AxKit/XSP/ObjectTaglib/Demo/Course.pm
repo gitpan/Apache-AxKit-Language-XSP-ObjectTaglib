@@ -1,4 +1,4 @@
-# $Id: Course.pm 377 2005-03-10 02:56:40Z claco $
+# $Id: /local/CPAN/Apache-AxKit-Language-XSP-ObjectTaglib/lib/AxKit/XSP/ObjectTaglib/Demo/Course.pm 1508 2005-03-10T02:56:40.581331Z claco  $
 package AxKit::XSP::ObjectTaglib::Demo::Course;
 use strict;
 use warnings;

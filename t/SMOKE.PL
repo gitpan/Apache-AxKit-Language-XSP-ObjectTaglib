@@ -1,5 +1,5 @@
 #!perl
-# $Id: SMOKE.PL 315 2005-03-05 17:38:53Z claco $
+# $Id: /local/CPAN/Apache-AxKit-Language-XSP-ObjectTaglib/t/SMOKE.PL 1502 2005-03-05T17:38:53.550891Z claco  $
 use strict;
 use warnings FATAL => 'all';
 use lib qw(lib);

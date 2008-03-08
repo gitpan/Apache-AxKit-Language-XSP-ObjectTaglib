@@ -1,5 +1,8 @@
-$Id: Changes 471 2005-03-22 00:27:32Z claco $
+$Id: /local/CPAN/Apache-AxKit-Language-XSP-ObjectTaglib/Changes 1518 2008-03-08T22:17:31.628142Z claco  $
 Revision history for Perl module Apache::AxKit::Language::XSP::ObjectTaglib
+
+0.09000 Sat Mar 8 17:12:45 2008
+    - Converted to Module::Install
 
 0.08 Mon Mar 21 19:22:37 2005
     - Added Test::Strict warnings_ok tests

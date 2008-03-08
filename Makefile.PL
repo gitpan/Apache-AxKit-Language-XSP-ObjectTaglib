@@ -1,7 +1,21 @@
-# $Id: Makefile.PL 471 2005-03-22 00:27:32Z claco $
+# $Id: /local/CPAN/Apache-AxKit-Language-XSP-ObjectTaglib/Makefile.PL 1518 2008-03-08T22:17:31.628142Z claco  $
 use strict;
 use warnings;
-use ExtUtils::MakeMaker;
+use inc::Module::Install 0.65;
+
+name 'Apache-AxKit-Language-XSP-ObjectTaglib';
+license 'artistic';
+perl_version '5.008000';
+all_from 'lib/Apache/AxKit/Language/XSP/ObjectTaglib.pm';
+
+requires 'AxKit' => 1.62;
+
+tests 't/*.t';
+clean_files 'smoke-report-* t/TEST t/SMOKE t/logs';
+
+eval {
+    system 'pod2text lib/Apache/AxKit/Language/XSP/ObjectTaglib.pm > README';
+};
 
 eval 'use Apache::Test 1.16';
 if (!$@) {
@@ -20,22 +34,5 @@ if (!$@) {
     Apache::TestMM::generate_script('t/SMOKE');
 };
 
-WriteMakefile(
-    NAME            => 'Apache::AxKit::Language::XSP::ObjectTaglib',
-    VERSION_FROM    => 'lib/Apache/AxKit/Language/XSP/ObjectTaglib.pm',
-    ABSTRACT        => 'XSP helper for OO Taglibs',
-    ($] >= 5.005 ?
-        (AUTHOR     => 'Christopher H. Laco <claco@chrislaco.com>') : ()),
-    PREREQ_PM       => {
-        'AxKit'     =>  1.62
-    },
-    (ExtUtils::MakeMaker->VERSION >= 6.11) ?
-    (NO_META        => 1) : (),
-
-    dist => {
-        PREOP => 'pod2text lib/Apache/AxKit/Language/XSP/ObjectTaglib.pm > $(DISTVNAME)/README',
-    },
-    clean           =>  {
-        FILES => "t/TEST t/SMOKE smoke-report-* t/logs"
-    }
-);
+auto_install;
+WriteAll;

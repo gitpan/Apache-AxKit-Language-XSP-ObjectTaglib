@@ -1,5 +1,5 @@
 #!perl -wT
-# $Id: 002_pod.t 309 2005-03-05 17:05:21Z claco $
+# $Id: /local/CPAN/Apache-AxKit-Language-XSP-ObjectTaglib/t/002_pod.t 1497 2005-03-05T17:05:21.898763Z claco  $
 use strict;
 use warnings;
 use Test::More;

@@ -1,17 +1,20 @@
---- #YAML:1.0
-name: Apache-AxKit-Language-XSP-ObjectTaglib
+--- 
 abstract: Helper for OO Taglibs
-author: Christopher H. Laco <claco@chrislaco.com>
-version: 0.08
-version_from: lib/Apache/AxKit/Language/XSP/ObjectTaglib.pm
-installdirs: site
-license: perl
-requires:
-  AxKit: 1.62
-recommends:
-  Pod::Coverage: 0.14
-  Test::Pod: 1.00
-  Test::Pod::Coverage: 1.04
-  Test:Strict: 0.05
+author: 
+  - Christopher H. Laco
 distribution_type: module
-generated_by: ExtUtils::MakeMaker version 6.17
+generated_by: Module::Install version 0.68
+license: artistic
+meta-spec: 
+  url: http://module-build.sourceforge.net/META-spec-v1.3.html
+  version: 1.3
+name: Apache-AxKit-Language-XSP-ObjectTaglib
+no_index: 
+  directory: 
+    - inc
+    - t
+requires: 
+  AxKit: 1.62
+  perl: 5.8.0
+tests: t/*.t
+version: 0.09000
